@@ -7,6 +7,73 @@
 <body>
   <script>
     
+    const computerPlay = () => {
+      const getRandom = Math.floor(Math.random() * 3 );
+      switch(getRandom) {
+        case 0:
+          return "камень";
+          break;
+        case 1:
+          return "ножницы";
+          break;
+        default:
+          return "бумага";
+      }
+    }
+  
+  function playRound (playerSel = prompt('Введите камень, ножницы или бумага'), computerSelection = computerPlay()) {
+    const playerSelection = playerSel.toLowerCase();
+    let result = "";
+
+    if ((playerSelection === "бумага") && (computerSelection === "ножницы")) {
+      result = "Вы проиграли! Ножницы режут бумагу.";
+      return result;
+    } else if ((playerSelection === "бумага") && (computerSelection === "камень")) {
+      result = "Вы победили! Бумага заворачивает камень.";
+      return result;
+    } else if ((playerSelection === "бумага") && (computerSelection === "бумага")) {
+      result = "Ничья.";
+      return result;
+    } else if ((playerSelection === "ножницы") && (computerSelection === "камень")) {
+      result = "Вы проиграли! Ножницы тупятся об камень.";
+      return result;
+    } else if ((playerSelection === "камень") && (computerSelection === "ножницы")) {
+      result = "Вы победили! Камень тупит ножницы.";
+      return result;
+    } else if ((playerSelection === "камень") && (computerSelection === "бумага")) {
+      result = "Вы проиграли! Бумага заворачивает камень.";
+      return result;
+    } else if ((playerSelection === "ножницы") && (computerSelection === "ножницы")) {
+      result = "Ничья.";
+      return result;
+    } else if ((playerSelection === "камень") && (computerSelection === "камень")) {
+      result = "Ничья.";
+      return result; }
+  }
+
+  function game() {
+    let player = 0;
+    let pc = 0;
+    let count = 0;
+    
+    for (let i = 1; i <= 5; i++) {
+      const text = playRound();
+      console.log(`Раунд ${i}`);
+      if (text.search("Вы победили") != -1) {
+        ++player;
+        console.log(`Счёт Вы - ${player} : ПК - ${pc}`);
+      } else if (text.search("Вы проиграли") != -1) {
+        ++pc;
+        console.log(`Счёт Вы - ${player} : ПК - ${pc}`);
+      } else {
+        ++count;
+        console.log("Ничья");
+      }
+    }
+    return (`Счёт Вы - ${player} : ПК - ${pc} `);
+  }
+    
+
   </script>
 </body>
 </html>
