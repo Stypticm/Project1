@@ -1,79 +1,184 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <title>Камень Ножницы Бумага</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Камень Ножницы Бумага</title>
 </head>
+
 <body>
-  <script>
-    
-    const computerPlay = () => {
-      const getRandom = Math.floor(Math.random() * 3 );
-      switch(getRandom) {
-        case 0:
-          return "камень";
-          break;
-        case 1:
-          return "ножницы";
-          break;
-        default:
-          return "бумага";
-      }
-    }
-  
-  function playRound (playerSel = prompt('Введите камень, ножницы или бумага'), computerSelection = computerPlay()) {
-    const playerSelection = playerSel.toLowerCase();
-    let result = "";
-
-    if ((playerSelection === "бумага") && (computerSelection === "ножницы")) {
-      result = "Вы проиграли! Ножницы режут бумагу.";
-      return result;
-    } else if ((playerSelection === "бумага") && (computerSelection === "камень")) {
-      result = "Вы победили! Бумага заворачивает камень.";
-      return result;
-    } else if ((playerSelection === "бумага") && (computerSelection === "бумага")) {
-      result = "Ничья.";
-      return result;
-    } else if ((playerSelection === "ножницы") && (computerSelection === "камень")) {
-      result = "Вы проиграли! Ножницы тупятся об камень.";
-      return result;
-    } else if ((playerSelection === "камень") && (computerSelection === "ножницы")) {
-      result = "Вы победили! Камень тупит ножницы.";
-      return result;
-    } else if ((playerSelection === "камень") && (computerSelection === "бумага")) {
-      result = "Вы проиграли! Бумага заворачивает камень.";
-      return result;
-    } else if ((playerSelection === "ножницы") && (computerSelection === "ножницы")) {
-      result = "Ничья.";
-      return result;
-    } else if ((playerSelection === "камень") && (computerSelection === "камень")) {
-      result = "Ничья.";
-      return result; }
-  }
-
-  function game() {
-    let player = 0;
-    let pc = 0;
-    let count = 0;
-    
-    for (let i = 1; i <= 5; i++) {
-      const text = playRound();
-      console.log(`Раунд ${i}`);
-      if (text.search("Вы победили") != -1) {
-        ++player;
-        console.log(`Счёт Вы - ${player} : ПК - ${pc}`);
-      } else if (text.search("Вы проиграли") != -1) {
-        ++pc;
-        console.log(`Счёт Вы - ${player} : ПК - ${pc}`);
-      } else {
-        ++count;
-        console.log("Ничья");
-      }
-    }
-    return (`Счёт Вы - ${player} : ПК - ${pc} `);
-  }
-    
-
-  </script>
+    <button id="stone">Камень</button>
+    <button id="scissors">Ножницы</button>
+    <button id="paper">Бумага</button>
+    <div id="container"></div>
+    <p></p>
+    <div id="res"></div>
 </body>
+
 </html>
+
+<script>
+    let countPC = 0;
+    let countME = 0;
+    let rounds = 0;
+
+    computerPlay = () => {
+        const getRandom = Math.floor(Math.random() * 3);
+        switch (getRandom) {
+            case 0:
+                return "камень";
+                break;
+            case 1:
+                return "ножницы";
+                break;
+            default:
+                return "бумага";
+        }
+    }
+
+    playRound = (playerSelection, computerSelection = computerPlay()) => {
+        playerSelection.toLowerCase();
+        if ((playerSelection === "бумага") && (computerSelection === "ножницы")) {
+            result = "Вы проиграли! Ножницы режут бумагу.";
+        } else if ((playerSelection === "бумага") && (computerSelection === "камень")) {
+            result = "Вы победили! Бумага заворачивает камень.";
+        } else if ((playerSelection === "бумага") && (computerSelection === "бумага")) {
+            result = "Ничья.";
+        } else if ((playerSelection === "ножницы") && (computerSelection === "камень")) {
+            result = "Вы проиграли! Ножницы тупятся об камень.";
+        } else if ((playerSelection === "камень") && (computerSelection === "ножницы")) {
+            result = "Вы победили! Камень тупит ножницы.";
+        } else if ((playerSelection === "камень") && (computerSelection === "бумага")) {
+            result = "Вы проиграли! Бумага заворачивает камень.";
+        } else if ((playerSelection === "ножницы") && (computerSelection === "ножницы")) {
+            result = "Ничья.";
+        } else if ((playerSelection === "камень") && (computerSelection === "камень")) {
+            result = "Ничья.";
+        } else if ((playerSelection === "ножницы") && (computerSelection === "бумага")) {
+            result = "Вы победили! Ножницы режут бумагу.";
+        }
+        return result;
+    }
+
+    // Кнопки + Вывод результата
+    const btnStone = document.querySelector('#stone');
+    btnStone.addEventListener('click', e => {
+        const content = document.createElement("div");
+        content.classList.add("stone");
+        content.textContent = playRound("камень");
+        container.appendChild(content);
+
+        if (playRound("камень").search("Вы победили") != -1) {
+            countME = countME + 1;
+        } else if (playRound("камень").search("Вы победили") == -1) {
+            countPC = countPC + 1;
+        }
+
+        // Счёт
+        const containerRes = document.querySelector("#res");
+        const contentGame = document.createElement("div");
+        contentGame.classList.add("game");
+        contentGame.textContent = `Счёт Вы - ${countME} : ПК - ${countPC}`;
+        container.appendChild(contentGame);
+
+        if ((countME >= 5) || (countPC >= 5)) {
+            btnStone.style.display = 'none';
+            btnPaper.style.display = 'none';
+            btnScissors.style.display = 'none';
+            if (countME >= 5) {
+                const contentWinner = document.createElement("div");
+                contentWinner.classList.add("winner");
+                contentWinner.textContent = "Вы победили";
+                container.appendChild(contentWinner);
+            } else if (countPC >= 5) {
+                const contentWinner = document.createElement("div");
+                contentWinner.classList.add("winner");
+                contentWinner.textContent = "ПК победил";
+                container.appendChild(contentWinner);
+            }
+        }
+    });
+
+    const btnPaper = document.querySelector('#paper');
+    btnPaper.addEventListener('click', e => {
+        const content = document.createElement("div");
+        content.classList.add("paper");
+        content.textContent = playRound("бумага");
+        container.appendChild(content);
+        if (playRound("камень").search("Вы победили") != -1) {
+            countME = countME + 1;
+        } else if (playRound("камень").search("Вы победили") == -1) {
+            countPC = countPC + 1;
+        }
+
+        // Счёт
+        const containerRes = document.querySelector("#res");
+        const contentGame = document.createElement("div");
+        contentGame.classList.add("game");
+        contentGame.textContent = `Счёт Вы - ${countME} : ПК - ${countPC}`;
+        container.appendChild(contentGame);
+
+        if ((countME >= 5) || (countPC >= 5)) {
+            btnStone.style.display = 'none';
+            btnPaper.style.display = 'none';
+            btnScissors.style.display = 'none';
+            if (countME >= 5) {
+                const contentWinner = document.createElement("div");
+                contentWinner.classList.add("winner");
+                contentWinner.textContent = "Вы победили";
+                container.appendChild(contentWinner);
+            } else if (countPC >= 5) {
+                const contentWinner = document.createElement("div");
+                contentWinner.classList.add("winner");
+                contentWinner.textContent = "ПК победил";
+                container.appendChild(contentWinner);
+            }
+        }
+    });
+
+    const btnScissors = document.querySelector('#scissors');
+    btnScissors.addEventListener('click', e => {
+        const content = document.createElement("div");
+        content.classList.add("scissors");
+        content.textContent = playRound("ножницы");
+        container.appendChild(content);
+        if (playRound("камень").search("Вы победили") != -1) {
+            countME = countME + 1;
+        } else if (playRound("камень").search("Вы победили") == -1) {
+            countPC = countPC + 1;
+        }
+
+        // Счёт
+        const containerRes = document.querySelector("#res");
+        const contentGame = document.createElement("div");
+        contentGame.classList.add("game");
+        contentGame.textContent = `Счёт Вы - ${countME} : ПК - ${countPC}`;
+        container.appendChild(contentGame);
+
+        if ((countME >= 5) || (countPC >= 5)) {
+            btnStone.style.display = 'none';
+            btnPaper.style.display = 'none';
+            btnScissors.style.display = 'none';
+            if (countME >= 5) {
+                const contentWinner = document.createElement("div");
+                contentWinner.classList.add("winner");
+                contentWinner.textContent = "Вы победили";
+                container.appendChild(contentWinner);
+            } else if (countPC >= 5) {
+                const contentWinner = document.createElement("div");
+                contentWinner.classList.add("winner");
+                contentWinner.textContent = "ПК победил";
+                container.appendChild(contentWinner);
+            }
+        }
+    });
+
+    // Текст Игра началась
+    const container = document.querySelector("#container");
+    const content = document.createElement("div");
+    content.classList.add("startGame");
+    content.textContent = "Игра началась";
+    container.appendChild(content);
+</script>
