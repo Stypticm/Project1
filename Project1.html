@@ -25,16 +25,19 @@
 
     // Функция случайного выбора значения
     computerPlay = () => {
+        const stone = 'камень';
+        const scissors = 'ножницы';
+        const paper = 'бумага';
         const random = Math.floor(Math.random() * 3);
         switch (random) {
             case 0:
-                return "камень";
+                return stone;
                 break;
             case 1:
-                return "ножницы";
+                return scissors;
                 break;
             default:
-                return "бумага";
+                return paper;
         }
     }
 
