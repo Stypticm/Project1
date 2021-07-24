@@ -1,0 +1,20 @@
+*, body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.buttons {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.result {
+    position: absolute;
+    left: 40%
+}

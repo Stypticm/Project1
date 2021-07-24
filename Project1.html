@@ -1,157 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
     <title>Камень Ножницы Бумага</title>
-</head>
+  </head>
 
-<body>
-    <button id="stone">Камень</button>
-    <button id="scissors">Ножницы</button>
-    <button id="paper">Бумага</button>
-    <div id="container"></div>
-    <p></p>
-    <div id="res"></div>
-</body>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="buttons">
+          <button id="stone" type="button" class="btn btn-primary" name="камень">
+            Камень
+          </button>
+          <button id="scissors" type="button" class="btn btn-primary" name="ножницы">
+            Ножницы
+          </button>
+          <button id="paper" type="button" class="btn btn-primary" name="бумага">
+            Бумага
+          </button>
+        </div>
+      </div>
+    </div>
+    <br/>
+    <div class="result"></div>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+    crossorigin="anonymous"
+  ></script>
 
+  <script src="script.js"></script>
 </html>
-
-<script>
-    let countPCWinRound = 0;
-    let countMEWinRound = 0;
-
-    // Функция случайного выбора значения
-    computerPlay = () => {
-        const stone = 'камень';
-        const scissors = 'ножницы';
-        const paper = 'бумага';
-        const random = Math.floor(Math.random() * 3);
-        switch (random) {
-            case 0:
-                return stone;
-                break;
-            case 1:
-                return scissors;
-                break;
-            default:
-                return paper;
-        }
-    }
-
-    // Функция сравнения и выявления победителя раунда
-    playRound = (playerSelection, computerSelection = computerPlay()) => {
-        playerSelection.toLowerCase();
-        if ((playerSelection === "бумага") && (computerSelection === "ножницы")) {
-            result = "Вы проиграли! Ножницы режут бумагу.";
-        } else if ((playerSelection === "бумага") && (computerSelection === "камень")) {
-            result = "Вы победили! Бумага заворачивает камень.";
-        } else if (playerSelection === computerSelection) {
-            result = "Ничья.";
-        } else if ((playerSelection === "ножницы") && (computerSelection === "камень")) {
-            result = "Вы проиграли! Ножницы тупятся об камень.";
-        } else if ((playerSelection === "камень") && (computerSelection === "ножницы")) {
-            result = "Вы победили! Камень тупит ножницы.";
-        } else if ((playerSelection === "камень") && (computerSelection === "бумага")) {
-            result = "Вы проиграли! Бумага заворачивает камень.";
-        } else if (playerSelection === computerSelection) {
-            result = "Ничья.";
-        } else if (playerSelection === computerSelection) {
-            result = "Ничья.";
-        } else if ((playerSelection === "ножницы") && (computerSelection === "бумага")) {
-            result = "Вы победили! Ножницы режут бумагу.";
-        }
-        return result;
-    }
-
-    // Счетчик побед раундов ПК
-    function contentWinnerMe() {
-        const contentWinner = document.createElement("div");
-        contentWinner.classList.add("winner");
-        contentWinner.textContent = "Вы победили";
-        document.querySelector("#container").appendChild(contentWinner);
-    }
-
-    // Счетчик побед раундов пользователя
-    function contentWinnerPC() {
-        const contentWinner = document.createElement("div");
-        contentWinner.classList.add("winner");
-        contentWinner.textContent = "ПК победил";
-        document.querySelector("#container").appendChild(contentWinner);
-    }
-
-    // Вывод общего счёт на экран
-    function totalScore() {
-        const containerRes = document.querySelector("#res");
-        const contentGame = document.createElement("div");
-        contentGame.classList.add("game");
-        contentGame.textContent = `Счёт Вы - ${countMEWinRound} : ПК - ${countPCWinRound}`;
-        document.querySelector("#container").appendChild(contentGame);
-
-        if ((countMEWinRound >= 5) || (countPCWinRound >= 5)) {
-            btnStone.style.display = 'none';
-            btnPaper.style.display = 'none';
-            btnScissors.style.display = 'none';
-            if (countMEWinRound >= 5) {
-                contentWinnerMe();
-            } else if (countPCWinRound >= 5) {
-                contentWinnerPC();
-            }
-        }
-    }
-
-    // Текст Игра началась
-    const container = document.querySelector("#container");
-    const content = document.createElement("div");
-    content.classList.add("startGame");
-    content.textContent = "Игра началась";
-    container.appendChild(content);
-
-    // Реализация работы кнопки камень + Вывод результата
-    const btnStone = document.querySelector('#stone');
-    btnStone.addEventListener('click', e => {
-        const content = document.createElement("div");
-        content.classList.add("stone");
-        content.textContent = playRound("камень");
-        container.appendChild(content);
-
-        if (playRound("камень").search("Вы победили") !== -1) {
-            countMEWinRound = countMEWinRoundWinRound + 1;
-        } else if (playRound("камень").search("Вы победили") === -1) {
-            countPCWinRoundWinRound = countPCWinRoundWinRound + 1;
-        }
-        totalScore();
-    });
-
-    // Реализация работы кнопки бумага + Вывод результата
-    const btnPaper = document.querySelector('#paper');
-    btnPaper.addEventListener('click', e => {
-        const content = document.createElement("div");
-        content.classList.add("paper");
-        content.textContent = playRound("бумага");
-        container.appendChild(content);
-        if (playRound("камень").search("Вы победили") !== -1) {
-            countMEWinRound = countMEWinRound + 1;
-        } else if (playRound("камень").search("Вы победили") === -1) {
-            countPCWinRound = countPCWinRound + 1;
-        }
-        totalScore();
-    });
-
-    // Реализация работы кнопки ножницы + Вывод результата
-    const btnScissors = document.querySelector('#scissors');
-    btnScissors.addEventListener('click', e => {
-        const content = document.createElement("div");
-        content.classList.add("scissors");
-        content.textContent = playRound("ножницы");
-        container.appendChild(content);
-        if (playRound("камень").search("Вы победили") !== -1) {
-            countMEWinRound = countMEWinRound + 1;
-        } else if (playRound("камень").search("Вы победили") === -1) {
-            countPCWinRound = countPCWinRound + 1;
-        }
-        totalScore();
-    });
-</script>
