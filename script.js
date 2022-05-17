@@ -25,6 +25,18 @@ function disabledButtons() {
   document.querySelector("#paper").disabled = true;
 }
 
+function pcWinRoundPlusOne(pc, result) {
+  pc.innerHTML = `Компьютер победил в раунде + 1 очко`;
+  result.appendChild(pc);
+  countRound.countPCWin++;
+}
+
+function playerWindRoundPlusOne(user, result) {
+  user.innerHTML = `Игрок победил в раунде + 1 очко`;
+  result.appendChild(user);
+  countRound.countUserWin++;
+}
+
 // Реализация работы кнопки камень + Вывод результата
 document.querySelector("#stone").addEventListener("click", (e) => {
   e.preventDefault();
@@ -36,11 +48,9 @@ document.querySelector("#stone").addEventListener("click", (e) => {
 
   if (user === pc) {
     newP.innerHTML = `Ничья`;
-    result.appendChild(newP);
+    result.appendChild(newP, result);
   } else if (user === "камень" && pc === "бумага") {
-    newP.innerHTML = `Компьютер победил в раунде + 1 очко`;
-    result.appendChild(newP);
-    countRound.countPCWin++;
+    pcWinRoundPlusOne(newP, result);
     if (countRound.countPCWin === 3) {
       newP.innerHTML = `+ 1 очко и компьютер побеждает в игре`;
       result.appendChild(newP);
@@ -48,9 +58,7 @@ document.querySelector("#stone").addEventListener("click", (e) => {
       return;
     }
   } else if (user === "камень" && pc === "ножницы") {
-    newP.innerHTML = `Игрок победил в раунде + 1 очко`;
-    result.appendChild(newP);
-    countRound.countUserWin++;
+    playerWindRoundPlusOne(newP, result);
     if (countRound.countUserWin === 3) {
       newP.innerHTML = `+ 1 очко и игрок побеждает в игре`;
       result.appendChild(newP);
@@ -72,11 +80,9 @@ document.querySelector("#paper").addEventListener("click", (e) => {
 
   if (user === pc) {
     newP.innerHTML = `Ничья`;
-    result.appendChild(newP);
+    result.appendChild();
   } else if (user === "бумага" && pc === "камень") {
-    newP.innerHTML = `Игрок победил в раунде + 1 очко`;
-    result.appendChild(newP);
-    countRound.countUserWin++;
+    playerWindRoundPlusOne(newP, result);
     if (countRound.countUserWin === 3) {
       newP.innerHTML = `+ 1 очко и игрок побеждает в игре`;
       result.appendChild(newP);
@@ -84,9 +90,7 @@ document.querySelector("#paper").addEventListener("click", (e) => {
       return;
     }
   } else if (user === "бумага" && pc === "ножницы") {
-    newP.innerHTML = `Компьютер победил в раунде + 1 очко`;
-    result.appendChild(newP);
-    countRound.countPCWin++;
+    pcWinRoundPlusOne(newP, result);
     if (countRound.countPCWin === 3) {
       newP.innerHTML = `+ 1 очко и компьютер побеждает в игре`;
       result.appendChild(newP);
@@ -110,9 +114,7 @@ document.querySelector("#scissors").addEventListener("click", (e) => {
     newP.innerHTML = `Ничья`;
     result.appendChild(newP);
   } else if (user === "ножницы" && pc === "бумага") {
-    newP.innerHTML = `Игрок победил в раунде + 1 очко`;
-    result.appendChild(newP);
-    countRound.countUserWin++;
+    playerWindRoundPlusOne(newP, result);
     if (countRound.countUserWin === 3) {
       newP.innerHTML = `+ 1 очко и игрок побеждает в игре`;
       result.appendChild(newP);
@@ -120,9 +122,7 @@ document.querySelector("#scissors").addEventListener("click", (e) => {
       return;
     }
   } else if (user === "ножницы" && pc === "камень") {
-    newP.innerHTML = `Компьютер победил в раунде + 1 очко`;
-    result.appendChild(newP);
-    countRound.countPCWin++;
+    pcWinRoundPlusOne(newP, result);
     if (countRound.countPCWin === 3) {
       newP.innerHTML = `+ 1 очко и компьютер побеждает в игре`;
       result.appendChild(newP);
