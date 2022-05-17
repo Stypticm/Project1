@@ -4,8 +4,7 @@ const countRound = {
 };
 
 // Текст Игра началась
-const container = (document.querySelector(".result").textContent =
-  "Игра началась, игра идет до 3ёх побед");
+const container = (document.querySelector(".result").textContent = "Игра началась, игра идет до 3ёх побед");
 
 // Функция случайного выбора значения
 function computerPlay() {
@@ -19,7 +18,12 @@ function computerPlay() {
       return "бумага";
   }
 }
-computerPlay();
+
+function disabledButtons() {
+  document.querySelector("#stone").disabled = true;
+  document.querySelector("#scissors").disabled = true;
+  document.querySelector("#paper").disabled = true;
+}
 
 // Реализация работы кнопки камень + Вывод результата
 document.querySelector("#stone").addEventListener("click", (e) => {
@@ -40,9 +44,7 @@ document.querySelector("#stone").addEventListener("click", (e) => {
     if (countRound.countPCWin === 3) {
       newP.innerHTML = `+ 1 очко и компьютер побеждает в игре`;
       result.appendChild(newP);
-      document.querySelector("#stone").disabled = true;
-      document.querySelector("#scissors").disabled = true;
-      document.querySelector("#paper").disabled = true;
+      disabledButtons();
       return;
     }
   } else if (user === "камень" && pc === "ножницы") {
@@ -52,9 +54,7 @@ document.querySelector("#stone").addEventListener("click", (e) => {
     if (countRound.countUserWin === 3) {
       newP.innerHTML = `+ 1 очко и игрок побеждает в игре`;
       result.appendChild(newP);
-      document.querySelector("#stone").disabled = true;
-      document.querySelector("#scissors").disabled = true;
-      document.querySelector("#paper").disabled = true;
+      disabledButtons();
       return;
     }
   }
@@ -80,9 +80,7 @@ document.querySelector("#paper").addEventListener("click", (e) => {
     if (countRound.countUserWin === 3) {
       newP.innerHTML = `+ 1 очко и игрок побеждает в игре`;
       result.appendChild(newP);
-      document.querySelector("#stone").disabled = true;
-      document.querySelector("#scissors").disabled = true;
-      document.querySelector("#paper").disabled = true;
+      disabledButtons();
       return;
     }
   } else if (user === "бумага" && pc === "ножницы") {
@@ -92,9 +90,7 @@ document.querySelector("#paper").addEventListener("click", (e) => {
     if (countRound.countPCWin === 3) {
       newP.innerHTML = `+ 1 очко и компьютер побеждает в игре`;
       result.appendChild(newP);
-      document.querySelector("#stone").disabled = true;
-      document.querySelector("#scissors").disabled = true;
-      document.querySelector("#paper").disabled = true;
+      disabledButtons();
       return;
     }
   }
@@ -120,9 +116,7 @@ document.querySelector("#scissors").addEventListener("click", (e) => {
     if (countRound.countUserWin === 3) {
       newP.innerHTML = `+ 1 очко и игрок побеждает в игре`;
       result.appendChild(newP);
-      document.querySelector("#stone").disabled = true;
-      document.querySelector("#scissors").disabled = true;
-      document.querySelector("#paper").disabled = true;
+      disabledButtons();
       return;
     }
   } else if (user === "ножницы" && pc === "камень") {
@@ -132,9 +126,7 @@ document.querySelector("#scissors").addEventListener("click", (e) => {
     if (countRound.countPCWin === 3) {
       newP.innerHTML = `+ 1 очко и компьютер побеждает в игре`;
       result.appendChild(newP);
-      document.querySelector("#stone").disabled = true;
-      document.querySelector("#scissors").disabled = true;
-      document.querySelector("#paper").disabled = true;
+      disabledButtons();
       return;
     }
   }
